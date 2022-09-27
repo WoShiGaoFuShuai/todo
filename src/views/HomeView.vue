@@ -41,7 +41,10 @@
             <img src="@/assets/images/Delete.svg" alt="" />
           </div>
           <div class="priority">
-            <img src="@/assets/images/Apple.svg" alt="" />
+            <div class="img">
+              <img src="@/assets/images/Apple.svg" alt="" />
+              <span>3</span>
+            </div>
           </div>
         </div>
       </div>
@@ -135,29 +138,35 @@
 
     .content-tasks {
       .content-task {
+        margin-top: 16px;
         display: flex;
         background-color: #fff;
 
         .category {
-          width: 8px;
+          min-width: 8px;
           background-color: pink;
         }
 
         .deadline {
+          align-self: center;
           span {
             color: #9f9f9f;
             font-weight: 700;
             font-size: 11px;
             margin: 0 16px;
+            text-transform: uppercase;
           }
         }
 
         .text {
-          padding: 20px 0;
+          flex-grow: 1;
+          padding: 14px 0;
+          align-self: center;
 
           .text-title {
             font-size: 18px;
             color: #e74c3c;
+            margin-bottom: 4px;
           }
 
           .text-description {
@@ -168,8 +177,11 @@
         }
 
         .buttons {
-          margin-right: 30px;
+          align-self: center;
+          margin-right: 20px;
+          min-width: 80px;
           img {
+            margin-left: 20px;
             filter: brightness(0) saturate(100%) invert(95%) sepia(0%)
               saturate(107%) hue-rotate(161deg) brightness(86%) contrast(92%);
           }
@@ -177,9 +189,27 @@
 
         .priority {
           background-color: red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
-          img {
-            margin: 20px;
+          .img {
+            position: relative;
+
+            img {
+              margin: 20px;
+            }
+
+            span {
+              font-family: "PT Sans", sans-serif;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              color: #fff;
+              font-size: 24px;
+              font-weight: 700;
+            }
           }
         }
       }
