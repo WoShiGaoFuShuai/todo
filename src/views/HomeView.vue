@@ -49,6 +49,11 @@
         </div>
       </div>
     </div>
+
+    <div class="global-list">
+      <h2>Global list</h2>
+      <img src="@/assets/images/Arrow-right.svg" alt="" />
+    </div>
   </div>
 </template>
 
@@ -141,6 +146,15 @@
         margin-top: 16px;
         display: flex;
         background-color: #fff;
+        transition: all 0.4s ease;
+
+        &:last-child {
+          margin-bottom: 32px;
+        }
+
+        &:hover {
+          transform: scale(1.006);
+        }
 
         .category {
           min-width: 8px;
@@ -180,10 +194,19 @@
           align-self: center;
           margin-right: 20px;
           min-width: 80px;
+
           img {
             margin-left: 20px;
             filter: brightness(0) saturate(100%) invert(95%) sepia(0%)
               saturate(107%) hue-rotate(161deg) brightness(86%) contrast(92%);
+            transition: all 0.4s ease;
+
+            &:hover {
+              cursor: pointer;
+              transform: scale(1.1);
+              filter: brightness(0) saturate(100%) invert(67%) sepia(25%)
+                saturate(288%) hue-rotate(164deg) brightness(93%) contrast(87%);
+            }
           }
         }
 
@@ -213,6 +236,32 @@
           }
         }
       }
+    }
+  }
+
+  .global-list {
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+
+      h2 {
+        color: #82c7e0;
+      }
+
+      img {
+        filter: brightness(0) saturate(100%) invert(69%) sepia(82%)
+          saturate(195%) hue-rotate(153deg) brightness(94%) contrast(86%);
+      }
+    }
+
+    h2 {
+      font-family: "PT Sans", sans-serif;
+      color: #8da5b8;
+      font-weight: 700;
+      font-size: 20px;
+      margin-right: 16px;
     }
   }
 }
