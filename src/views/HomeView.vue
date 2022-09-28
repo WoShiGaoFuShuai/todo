@@ -2,6 +2,9 @@
   <div class="home">
     <nav class="nav">
       <ul class="nav-ul">
+        <li class="nav-username" v-if="store.user">
+          Welcome, {{ store.user.displayName }}!
+        </li>
         <li><img src="@/assets/images/Delete.svg" alt="" /></li>
         <li>
           <router-link :to="{ name: 'home' }">
@@ -57,7 +60,12 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useCounterStore } from "@/stores/counter";
+
+//COMPOSABLES
+const store = useCounterStore();
+</script>
 
 <style lang="scss" scoped>
 .home {
@@ -87,6 +95,12 @@
             saturate(1%) hue-rotate(37deg) brightness(105%) contrast(100%);
         }
       }
+    }
+
+    .nav-username {
+      margin-left: 0;
+      margin-right: auto;
+      color: #8da5b8;
     }
   }
 

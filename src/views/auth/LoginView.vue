@@ -7,7 +7,7 @@
       <button>Sign up</button>
       <p class="text">
         Don't have an account yet?
-        <router-link class="link" :to="{ name: 'signup' }">Login</router-link>
+        <router-link class="link" :to="{ name: 'signup' }">Sign up</router-link>
       </p>
     </form>
   </div>

@@ -2,16 +2,19 @@
   <div class="auth">
     <form @submit.enter.prevent="handleSubmit">
       <h1>Sign up</h1>
-      <input type="text" placeholder="nickname" required />
-      <input type="email" placeholder="email" required />
+      <input v-model="nickname" type="text" placeholder="nickname" required />
+      <input v-model="email" type="email" placeholder="email" required />
       <input
+        v-model="password"
         type="password"
         pattern=".{8,}"
         title="8 characters minimum"
         placeholder="password"
         required
       />
-      <button>Sign up</button>
+      <button v-if="!isPending">Sign up</button>
+      <button v-else>Loading...</button>
+      <div v-if="error">{{ error }}</div>
       <p class="text">
         Already have an account?
         <router-link class="link" :to="{ name: 'login' }">Login</router-link>
@@ -21,8 +24,30 @@
 </template>
 
 <script setup>
-const handleSubmit = () => {
-  console.log("WORKS");
+import useSignup from "@/composables/useSignup.js";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useCounterStore } from "@/stores/counter";
+
+//REFS
+const nickname = ref("");
+const email = ref("");
+const password = ref("");
+
+//COMPOSABLES
+const { signup, error, isPending } = useSignup();
+const router = useRouter();
+const store = useCounterStore();
+
+const handleSubmit = async () => {
+  const res = await signup(nickname.value, email.value, password.value);
+
+  if (!error.value) {
+    console.log("RES IN SIGNUP", res);
+    store.currentUser(res.user);
+    //  currentUser
+    router.push({ name: "home" });
+  }
 };
 </script>
 
