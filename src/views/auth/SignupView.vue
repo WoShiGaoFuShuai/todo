@@ -14,7 +14,7 @@
       />
       <button v-if="!isPending">Sign up</button>
       <button v-else>Loading...</button>
-      <div v-if="error">{{ error }}</div>
+      <div class="error" v-if="error">{{ error }}</div>
       <p class="text">
         Already have an account?
         <router-link class="link" :to="{ name: 'login' }">Login</router-link>
@@ -85,6 +85,18 @@ const handleSubmit = async () => {
 
     .text {
       text-shadow: 1px 2px 2px rgb(141 165 184 / 70%);
+      text-align: center;
+      &:hover {
+        .link {
+          color: rgb(130, 199, 224);
+          font-size: 20px;
+          text-decoration: underline;
+        }
+      }
+      .link {
+        display: block;
+        transition: all 1s ease-out;
+      }
     }
 
     input {
@@ -110,6 +122,7 @@ const handleSubmit = async () => {
       padding: 12px;
       font-family: "PT Sans", sans-serif;
       font-weight: 700;
+      border: none;
       border-radius: 15px 0px 15px 0px;
       background-color: rgb(141, 165, 184);
       box-shadow: 2px 1px 2px 2px rgba(141, 165, 184, 0.3);
@@ -123,19 +136,12 @@ const handleSubmit = async () => {
       }
     }
 
-    p {
-      text-align: center;
-      &:hover {
-        .link {
-          color: rgb(130, 199, 224);
-          font-size: 20px;
-          text-decoration: underline;
-        }
-      }
-      .link {
-        display: block;
-        transition: all 1s ease-out;
-      }
+    .error {
+      margin: 15px 0 5px;
+      font-family: "PT Sans", sans-serif;
+      font-weight: 700;
+      color: #f75c4c;
+      text-shadow: 1px 2px 2px rgb(141 165 184 / 70%);
     }
   }
 }

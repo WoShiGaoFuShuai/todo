@@ -5,6 +5,7 @@
         <li class="nav-username" v-if="store.user">
           Welcome, {{ store.user.displayName }}!
         </li>
+        <li><button @click="handleClick">Logout</button></li>
         <li><img src="@/assets/images/Delete.svg" alt="" /></li>
         <li>
           <router-link :to="{ name: 'home' }">
@@ -62,9 +63,23 @@
 
 <script setup>
 import { useCounterStore } from "@/stores/counter";
+import { auth } from "@/firebase/config.js";
+import { signOut } from "firebase/auth";
+import getUser from "@/composables/getUser.js";
+import { onMounted } from "vue";
 
 //COMPOSABLES
 const store = useCounterStore();
+const { user } = getUser();
+
+const handleClick = async () => {
+  await signOut(auth);
+  store.currentUser(user.value);
+};
+
+onMounted(() => {
+  store.currentUser(user.value);
+});
 </script>
 
 <style lang="scss" scoped>
