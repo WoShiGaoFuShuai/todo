@@ -77,18 +77,20 @@ import { auth } from "@/firebase/config.js";
 import { signOut } from "firebase/auth";
 import getUser from "@/composables/getUser.js";
 import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 //COMPOSABLES
 const store = useCounterStore();
 const { user } = getUser();
+const router = useRouter();
 
 const handleClick = async () => {
   await signOut(auth);
   store.currentUser(user.value);
+  router.push({ name: "login" });
 };
 
 onMounted(async () => {
-  console.log("MOUNTE");
   store.currentUser(auth.currentUser);
 });
 </script>
