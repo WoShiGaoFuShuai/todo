@@ -6,9 +6,13 @@ import router from "./router";
 
 import "@/assets/styles/style.css";
 
-const app = createApp(App);
+import { auth } from "@/firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
 
-app.use(createPinia());
-app.use(router);
+let app;
 
-app.mount("#app");
+onAuthStateChanged(auth, () => {
+  if (!app) {
+    app = createApp(App).use(createPinia()).use(router).mount("#app");
+  }
+});

@@ -2,18 +2,28 @@
   <div class="home">
     <nav class="nav">
       <ul class="nav-ul">
-        <li class="nav-username" v-if="store.user">
-          Welcome, {{ store.user.displayName }}!
-        </li>
-        <li><button @click="handleClick">Logout</button></li>
-        <li><img src="@/assets/images/Delete.svg" alt="" /></li>
-        <li>
-          <router-link :to="{ name: 'home' }">
-            <img src="@/assets/images/Global List.svg" alt="" />
-          </router-link>
-        </li>
-        <li><img src="@/assets/images/Statistics.svg" alt="" /></li>
-        <li><img src="@/assets/images/Settings.svg" alt="" /></li>
+        <template v-if="store.user">
+          <li class="nav-username">Welcome, {{ store.user.displayName }}!</li>
+          <li @click="handleClick">
+            <img src="@/assets/images/Logout.svg" alt="" />
+          </li>
+          <li><img src="@/assets/images/Delete.svg" alt="" /></li>
+          <li>
+            <router-link :to="{ name: 'home' }">
+              <img src="@/assets/images/Global List.svg" alt="" />
+            </router-link>
+          </li>
+          <li><img src="@/assets/images/Statistics.svg" alt="" /></li>
+          <li><img src="@/assets/images/Settings.svg" alt="" /></li>
+        </template>
+        <template v-if="!store.user">
+          <router-link :to="{ name: 'login' }"
+            ><li class="link">Login</li></router-link
+          >
+          <router-link :to="{ name: 'signup' }"
+            ><li class="link">Signup</li></router-link
+          >
+        </template>
       </ul>
     </nav>
     <div class="main-title">
@@ -77,8 +87,9 @@ const handleClick = async () => {
   store.currentUser(user.value);
 };
 
-onMounted(() => {
-  store.currentUser(user.value);
+onMounted(async () => {
+  console.log("MOUNTE");
+  store.currentUser(auth.currentUser);
 });
 </script>
 
@@ -94,6 +105,7 @@ onMounted(() => {
   .nav-ul {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 
     li {
       margin-left: 32px;
@@ -116,6 +128,24 @@ onMounted(() => {
       margin-left: 0;
       margin-right: auto;
       color: #8da5b8;
+    }
+
+    .link,
+    .btn {
+      background-color: #8da5b8;
+      padding: 8px 10px;
+      border-radius: 10px 0px 10px 0px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #82c7e0;
+        border-radius: 0px 10px 0px 10px;
+      }
+    }
+
+    .btn {
+      padding: 5px 8px;
     }
   }
 
