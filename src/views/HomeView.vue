@@ -1,4 +1,5 @@
 <template>
+  <AddTask />
   <div class="home">
     <nav class="nav">
       <ul class="nav-ul">
@@ -28,7 +29,7 @@
     </nav>
     <div class="main-title">
       <h1>Daily Task List</h1>
-      <img src="@/assets/images/Plus.svg" alt="" />
+      <img src="@/assets/images/Plus.svg" alt="" @click="openAddTask" />
     </div>
 
     <div class="content">
@@ -78,6 +79,7 @@ import { signOut } from "firebase/auth";
 import getUser from "@/composables/getUser.js";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+import AddTask from "@/components/AddTask.vue";
 
 //COMPOSABLES
 const store = useCounterStore();
@@ -88,6 +90,10 @@ const handleClick = async () => {
   await signOut(auth);
   store.currentUser(user.value);
   router.push({ name: "login" });
+};
+
+const openAddTask = () => {
+  store.toggleModalAddTask();
 };
 
 onMounted(async () => {

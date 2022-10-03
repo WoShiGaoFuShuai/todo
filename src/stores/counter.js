@@ -3,9 +3,10 @@ import { defineStore } from "pinia";
 
 export const useCounterStore = defineStore("counter", () => {
   //STORE
-  const count = ref(0);
   const user = ref(null);
+  const modalAddTask = ref(false);
 
+  const count = ref(0);
   const doubleCount = computed(() => count.value * 2);
   function increment() {
     count.value++;
@@ -16,5 +17,17 @@ export const useCounterStore = defineStore("counter", () => {
     user.value = payload;
   };
 
-  return { count, user, doubleCount, increment, currentUser };
+  const toggleModalAddTask = () => {
+    modalAddTask.value = !modalAddTask.value;
+  };
+
+  return {
+    count,
+    user,
+    doubleCount,
+    modalAddTask,
+    increment,
+    currentUser,
+    toggleModalAddTask,
+  };
 });
