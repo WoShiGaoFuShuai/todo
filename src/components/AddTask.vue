@@ -1,13 +1,17 @@
 <template>
-  <div v-if="store.modalAddTask" class="modal-add-task wrapper">
-    <div class="add-task">
+  <div
+    v-if="store.modalAddTask"
+    class="modal-add-task wrapper"
+    @click="handleCancel"
+  >
+    <div class="add-task" @click.stop="">
       <form @submit="handleSubmit">
         <ul class="buttons">
           <li class="button-item">
             <img
               src="@/assets/images/Cancel-btn.svg"
               alt=""
-              @click="handleCancel"
+              @click.stop="handleCancel"
             />
           </li>
           <li class="button-item">
@@ -28,6 +32,7 @@
               type="text"
               placeholder="Add title here"
               v-model="title"
+              required
             />
           </fieldset>
           <fieldset>
@@ -38,6 +43,7 @@
               type="text"
               placeholder="Add description here"
               v-model="description"
+              required
             />
           </fieldset>
           <fieldset class="radio category">
@@ -68,6 +74,7 @@
               id="deadline"
               type="text"
               placeholder="Add DEADLINE here"
+              required
             />
           </fieldset>
 
@@ -122,6 +129,12 @@ import { useCounterStore } from "@/stores/counter";
 import { db } from "@/firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import { ref } from "vue";
+
+const props = defineProps({
+  title: String,
+});
+
+console.log(props.title);
 
 const store = useCounterStore();
 
@@ -196,6 +209,7 @@ const handleSubmit = async () => {
 };
 
 const handleCancel = () => {
+  console.log("123");
   store.toggleModalAddTask();
   clearInputs();
 };

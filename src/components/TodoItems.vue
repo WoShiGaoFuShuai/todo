@@ -23,7 +23,11 @@
         </div>
         <div class="buttons">
           <img src="@/assets/images/Edit.svg" alt="" />
-          <img src="@/assets/images/Delete.svg" alt="" />
+          <img
+            @click="handleDelete(todo)"
+            src="@/assets/images/Delete.svg"
+            alt=""
+          />
         </div>
         <div :class="['priority', todo.priority]">
           <div class="img">
@@ -38,6 +42,14 @@
 
 <script setup>
 import { useCounterStore } from "@/stores/counter";
+import { db } from "@/firebase/config";
+import { deleteDoc, doc } from "@firebase/firestore";
+
+const handleDelete = (todo) => {
+  const todoRef = doc(db, "todos", todo.id);
+
+  deleteDoc(todoRef);
+};
 
 //COMPOSABLES & REFS
 const store = useCounterStore();
