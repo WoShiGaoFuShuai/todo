@@ -77,15 +77,22 @@ import { useCounterStore } from "@/stores/counter";
 import { auth } from "@/firebase/config.js";
 import { signOut } from "firebase/auth";
 import getUser from "@/composables/getUser.js";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import AddTask from "@/components/AddTask.vue";
+import { db } from "@/firebase/config";
+import { collection, getDocs } from "firebase/firestore";
 
 //COMPOSABLES
 const store = useCounterStore();
 const { user } = getUser();
 const router = useRouter();
+const colRef = collection(db, "todos");
 
+//REFS
+const check = ref([]);
+
+//FUNCTIONS
 const handleClick = async () => {
   await signOut(auth);
   store.currentUser(user.value);
@@ -96,6 +103,17 @@ const openAddTask = () => {
   store.toggleModalAddTask();
 };
 
+getDocs(colRef).then((snapsot) => {
+  let docs = [];
+  snapsot.docs.forEach((doc) => {
+    docs.push({ ...doc.data(), id: doc.id });
+  });
+
+  check.value = docs;
+  console.log(check.value);
+});
+
+//HOOKS
 onMounted(async () => {
   store.currentUser(auth.currentUser);
 });
