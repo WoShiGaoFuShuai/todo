@@ -23,9 +23,7 @@ export const useCounterStore = defineStore("counter", () => {
   };
 
   const pushTodos = (data) => {
-    console.log("DATA", data.value);
     todos.value = data;
-    console.log(todos.value);
   };
 
   return {

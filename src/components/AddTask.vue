@@ -1,17 +1,21 @@
 <template>
   <div v-if="store.modalAddTask" class="modal-add-task wrapper">
     <div class="add-task">
-      <form>
+      <form @submit="handleSubmit">
         <ul class="buttons">
           <li class="button-item">
             <img
               src="@/assets/images/Cancel-btn.svg"
               alt=""
-              @click="store.toggleModalAddTask"
+              @click="handleCancel"
             />
           </li>
           <li class="button-item">
-            <img src="@/assets/images/Agree-btn.svg" alt="" />
+            <img
+              @click="handleSubmit"
+              src="@/assets/images/Agree-btn.svg"
+              alt=""
+            />
           </li>
         </ul>
         <h2>Add Task</h2>
@@ -23,6 +27,7 @@
               id="title"
               type="text"
               placeholder="Add title here"
+              v-model="title"
             />
           </fieldset>
           <fieldset>
@@ -32,15 +37,18 @@
               id="description"
               type="text"
               placeholder="Add description here"
+              v-model="description"
             />
           </fieldset>
           <fieldset class="radio category">
             <span class="label-wrapper">
               <span class="label-title">Category</span>
 
-              <template v-for="(item, index) in category" :key="index">
+              <template v-for="(item, index) in categoryArray" :key="index">
                 <label class="label-item">
                   <input
+                    v-model="category"
+                    :value="item.value"
                     class="radio"
                     type="radio"
                     name="category"
@@ -55,6 +63,7 @@
           <fieldset>
             <label class="label-title" for="deadline"> Deadline </label>
             <input
+              v-model="deadline"
               class="input-text"
               id="deadline"
               type="text"
@@ -67,7 +76,7 @@
               <span class="label-title">Estimation</span>
 
               <label
-                v-for="(item, index) in estimation"
+                v-for="(item, index) in estimationArray"
                 :key="index"
                 class="label-item estimation"
               >
@@ -86,9 +95,11 @@
             <span class="label-wrapper">
               <span class="label-title">Priority</span>
 
-              <template v-for="(item, index) in priority" :key="index">
+              <template v-for="(item, index) in priorityArray" :key="index">
                 <label class="label-item">
                   <input
+                    v-model="priority"
+                    :value="item.value"
                     class="radio"
                     type="radio"
                     name="priority"
@@ -108,35 +119,52 @@
 
 <script setup>
 import { useCounterStore } from "@/stores/counter";
+import { db } from "@/firebase/config";
+import { addDoc, collection } from "firebase/firestore";
+import { ref } from "vue";
 
 const store = useCounterStore();
 
-const category = [
+// REFS
+const title = ref("");
+const description = ref("");
+const category = ref("hobby");
+const deadline = ref("");
+const estimation = ref(3);
+const priority = ref("high");
+
+const categoryArray = [
   {
     name: "Work",
     class: "orange",
+    value: "work",
   },
-  { name: "Education", class: "blue" },
-  { name: "Hobby", class: "pink" },
-  { name: "Sport", class: "red" },
-  { name: "Other", class: "aqua" },
+  { name: "Education", class: "blue", value: "education" },
+  { name: "Hobby", class: "pink", value: "hobby" },
+  { name: "Sport", class: "red", value: "sport" },
+  { name: "Other", class: "aqua", value: "other" },
 ];
 
-const priority = [
-  { name: "Urgent", class: "red" },
-  { name: "High", class: "orange" },
-  { name: "Middle", class: "yellow" },
-  { name: "Low", class: "green" },
+const priorityArray = [
+  { name: "Urgent", class: "red", value: "urgent" },
+  { name: "High", class: "orange", value: "high" },
+  { name: "Middle", class: "yellow", value: "middle" },
+  { name: "Low", class: "green", value: "low" },
 ];
 
-const estimation = [
+const estimationArray = [
   { name: 0, checked: true },
   { name: 1, checked: true },
   { name: 2, checked: true },
   { name: 3, checked: false },
   { name: 4, checked: false },
 ];
+
+//FUNCTIONS
+
 const handleClick = (index) => {
+  estimation.value = index + 1;
+  console.log(estimation.value);
   const allCheckboxes = document.querySelectorAll(
     ".label-item.estimation input"
   );
@@ -148,6 +176,37 @@ const handleClick = (index) => {
       allCheckboxes[i].checked = false;
     }
   }
+};
+
+const handleSubmit = async () => {
+  const colRef = collection(db, "todos");
+
+  store.toggleModalAddTask();
+
+  await addDoc(colRef, {
+    title: title.value,
+    description: description.value,
+    category: category.value,
+    deadline: deadline.value,
+    estimation: estimation.value,
+    priority: priority.value,
+  });
+
+  clearInputs();
+};
+
+const handleCancel = () => {
+  store.toggleModalAddTask();
+  clearInputs();
+};
+
+const clearInputs = () => {
+  title.value = "";
+  description.value = "";
+  category.value = "hobby";
+  deadline.value = "";
+  estimation.value = 3;
+  priority.value = "high";
 };
 </script>
 

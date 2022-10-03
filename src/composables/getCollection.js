@@ -14,8 +14,6 @@ const getCollection = (collectionName) => {
       results.push({ ...doc.data(), id: doc.id });
     });
     documents.value = results;
-    console.log("RES", results);
-    console.log("DOCS IN", documents.value);
   });
 
   watchEffect((onInvalidate) => {

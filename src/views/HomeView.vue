@@ -1,5 +1,5 @@
 <template>
-  <AddTask v-if="store.todos.length" />
+  <AddTask />
   <div class="home">
     <nav class="nav">
       <ul class="nav-ul">
@@ -59,10 +59,6 @@ const router = useRouter();
 const { documents } = getCollection("todos");
 
 store.pushTodos(documents);
-
-// console.log("DOCS123", [...documents]);
-// console.log("SPREAD", ...documents);
-// store.pushTodos(documents);
 
 //REFS
 
