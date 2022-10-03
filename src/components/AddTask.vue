@@ -236,25 +236,25 @@ const handleClick = (index) => {
           }
 
           ::-webkit-input-placeholder {
-            color: #8da5b8;
+            color: var(--grey);
           }
           :-moz-placeholder {
-            color: #8da5b8;
+            color: var(--grey);
             opacity: 1;
           }
           ::-moz-placeholder {
-            color: #8da5b8;
+            color: var(--grey);
             opacity: 1;
           }
           :-ms-input-placeholder {
-            color: #8da5b8;
+            color: var(--grey);
           }
           ::-ms-input-placeholder {
-            color: #8da5b8;
+            color: var(--grey);
           }
 
           ::placeholder {
-            color: #8da5b8;
+            color: var(--grey);
           }
         }
 
@@ -274,35 +274,35 @@ const handleClick = (index) => {
                 cursor: pointer;
 
                 .text {
-                  color: #82c7e0;
+                  color: var(--grey-light);
                 }
 
                 .fake.orange {
-                  background-color: #ffb200;
+                  background-color: var(--orange);
                 }
 
                 .fake.blue {
-                  background-color: #59abe3;
+                  background-color: var(--blue);
                 }
 
                 .fake.pink {
-                  background-color: #b470d0;
+                  background-color: var(--purple);
                 }
 
                 .fake.red {
-                  background-color: #e16c65;
+                  background-color: var(--red);
                 }
 
                 .fake.aqua {
-                  background-color: #00d4d9;
+                  background-color: var(--aqua);
                 }
 
                 .fake.yellow {
-                  background-color: #fddc43;
+                  background-color: var(--yellow);
                 }
 
                 .fake.green {
-                  background-color: #1abc9c;
+                  background-color: var(--green);
                 }
               }
 
@@ -319,7 +319,7 @@ const handleClick = (index) => {
                 width: 16px;
                 height: 16px;
                 position: relative;
-                background-color: #8da5b8;
+                background-color: var(--grey);
                 border-radius: 50%;
 
                 &.estimation {
@@ -369,36 +369,36 @@ const handleClick = (index) => {
               }
 
               .radio:checked ~ .fake.orange {
-                background-color: #ffb202;
+                background-color: var(--orange);
               }
 
               .radio:checked ~ .fake.blue {
-                background-color: #59abe3;
+                background-color: var(--blue);
               }
 
               .radio:checked ~ .fake.pink {
-                background-color: #b470d0;
+                background-color: var(--purple);
               }
 
               .radio:checked ~ .fake.red {
-                background-color: #e16c65;
+                background-color: var(--red);
               }
 
               .radio:checked ~ .fake.aqua {
-                background-color: #00d4d9;
+                background-color: var(--aqua);
               }
 
               .radio:checked ~ .fake.yellow {
-                background-color: #fddc43;
+                background-color: var(--yellow);
               }
 
               .radio:checked ~ .fake.green {
-                background-color: #1abc9c;
+                background-color: var(--green);
               }
 
               .text {
                 margin-left: 8px;
-                color: #8da5b8;
+                color: var(--grey);
                 font-weight: 400px;
                 line-height: 20px;
                 font-size: 16px;

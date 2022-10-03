@@ -77,7 +77,7 @@ const handleSubmit = async () => {
     h1,
     .text {
       margin: 10px 0 30px 0;
-      color: #82c7e0;
+      color: var(--grey-light);
       font-family: "PT Sans", sans-serif;
       font-weight: 700;
       text-shadow: 2px 2px 2px rgba(141, 165, 184, 0.7);
@@ -140,7 +140,7 @@ const handleSubmit = async () => {
       margin: 15px 0 5px;
       font-family: "PT Sans", sans-serif;
       font-weight: 700;
-      color: #f75c4c;
+      color: var(--red);
       text-shadow: 1px 2px 2px rgb(141 165 184 / 70%);
     }
   }
