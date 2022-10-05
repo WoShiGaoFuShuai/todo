@@ -7,6 +7,8 @@ export const useCounterStore = defineStore("counter", () => {
   const modalAddTask = ref(false);
   const todos = ref(null);
 
+  const modalTitle = ref("Add Task");
+
   const count = ref(0);
   const doubleCount = computed(() => count.value * 2);
   function increment() {
@@ -22,6 +24,15 @@ export const useCounterStore = defineStore("counter", () => {
     modalAddTask.value = !modalAddTask.value;
   };
 
+  const toggleModalEditTask = () => {
+    modalAddTask.value = !modalAddTask.value;
+    changeModalTitle("Edit Task");
+  };
+
+  const changeModalTitle = (value) => {
+    modalTitle.value = value;
+  };
+
   const pushTodos = (data) => {
     todos.value = data;
   };
@@ -32,9 +43,12 @@ export const useCounterStore = defineStore("counter", () => {
     doubleCount,
     modalAddTask,
     todos,
+    modalTitle,
     increment,
     currentUser,
     toggleModalAddTask,
+    toggleModalEditTask,
+    changeModalTitle,
     pushTodos,
   };
 });

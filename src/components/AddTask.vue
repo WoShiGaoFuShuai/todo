@@ -22,7 +22,7 @@
             />
           </li>
         </ul>
-        <h2>Add Task</h2>
+        <h2>{{ store.modalTitle }}</h2>
         <div class="content">
           <fieldset>
             <label class="label-title" for="title">Title</label>
@@ -130,11 +130,11 @@ import { db } from "@/firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import { ref } from "vue";
 
-const props = defineProps({
-  title: String,
-});
+// const props = defineProps({
+//   title: String,
+// });
 
-console.log(props.title);
+// console.log(props.title);
 
 const store = useCounterStore();
 
@@ -209,7 +209,7 @@ const handleSubmit = async () => {
 };
 
 const handleCancel = () => {
-  console.log("123");
+  store.changeModalTitle("Add Task");
   store.toggleModalAddTask();
   clearInputs();
 };

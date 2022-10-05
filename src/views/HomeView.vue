@@ -1,5 +1,5 @@
 <template>
-  <AddTask :title="textAdd" />
+  <AddTask />
   <div class="home">
     <nav class="nav">
       <ul class="nav-ul">
@@ -51,8 +51,6 @@ import { useRouter } from "vue-router";
 import AddTask from "@/components/AddTask.vue";
 import TodoItems from "@/components/TodoItems.vue";
 import getCollection from "@/composables/getCollection.js";
-
-const textAdd = "AI SFASFA";
 
 //COMPOSABLES
 const store = useCounterStore();
